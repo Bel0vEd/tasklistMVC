@@ -1,5 +1,5 @@
 <?php
-class Task {
+class taskClass {
     public $Name;
     public $Status;
     public $ID;

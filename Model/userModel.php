@@ -3,9 +3,10 @@
     {
         
 
-        function checkRegisterUser($login, $password)
+        function checkRegisterUser($login)
         {
             include 'connectDB.php';
+            $login = $mysqli->real_escape_string($login);
             $query = "SELECT * FROM users WHERE login = '$login'";
             $request = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($link));
             
@@ -22,6 +23,8 @@
         function userRegister($login, $password)
         {
             include 'connectDB.php';
+            $login = $mysqli->real_escape_string($login);
+            $password = $mysqli->real_escape_string($password);
             $query = "INSERT INTO users (login, password, user_hash) VALUES ('$login', '$password', '$hash')";
             $request = mysqli_query($link, $query) or die("Ошибка регистрации" . mysqli_error($link));
             
@@ -30,6 +33,8 @@
         function checkUserPassword($login, $password)
         {
             include 'connectDB.php';
+            $login = $mysqli->real_escape_string($login);
+            $password = $mysqli->real_escape_string($password);
             $query = "SELECT * FROM users WHERE login = '$login' AND password = '$password'";
             $request = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($link));
             
@@ -47,9 +52,11 @@
             }
         }
 
-        function userSetHash($hash)
+        function userSetHash($hash, $login, $password)
         {
             include 'connectDB.php';
+            $login = $mysqli->real_escape_string($login);
+            $password = $mysqli->real_escape_string($password);
             $query = "UPDATE users SET user_hash = '$hash' WHERE login = '$login' AND password = '$password'";
             $request = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($link));
         }

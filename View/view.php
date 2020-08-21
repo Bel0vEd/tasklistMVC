@@ -1,5 +1,5 @@
 <?php
-    class View
+    class view
     {
         function showAuthorization()
         {
@@ -11,7 +11,7 @@
                     <body>
                     <p>Авторизация</p>
                     <div style="display: flex;">
-                        <form action="../Controller/index.php?request=registerOrCheckUser" method="post">
+                        <form action="../Controller/Controller.php?request=registerOrCheckUser" method="post">
                         <p>
                         <input name="login">
                         <input name="password"> 
@@ -37,15 +37,15 @@
                     </head>
                     <body>
                     <div style="display: flex;">
-                        <form action="../Controller/index.php?request=addTask" method="post">
+                        <form action="../Controller/Controller.php?request=addTask" method="post">
                         <p><input name="textTask"> <input type="submit" value="Добавить"></p>
                         </form>
                         &emsp;
-                        <form action="../Controller/index.php?request=deleteAllTask" method="post">
+                        <form action="../Controller/Controller.php?request=deleteAllTask" method="post">
                         <p><input type="submit" value="Удалить все задачи"></p>
                         </form>
                         &emsp;
-                        <form action="../Controller/index.php?request=editStatusAllTask" method="post">
+                        <form action="../Controller/Controller.php?request=editStatusAllTask" method="post">
                         <p><input type="submit" value="Все задачи выполнены"></p>
                         </form>
                     </div>
@@ -55,11 +55,11 @@
             for($i=0;$i<count($AllTask);$i++)
             {
                 echo '<div style="display: flex;">';
-                $form = '<form action="../Controller/index.php?request=editStatusOneTask&id='.$AllTask[$i]->getID().'" method="post">
+                $form = '<form action="../Controller/Controller.php?request=editStatusOneTask&id='.$AllTask[$i]->getID().'" method="post">
                         <input type="submit" value="Выполнено">
                         </form>
                         &emsp;
-                        <form action="../Controller/index.php?request=deleteOneTask&id='.$AllTask[$i]->getID().'" method="post">
+                        <form action="../Controller/Controller.php?request=deleteOneTask&id='.$AllTask[$i]->getID().'" method="post">
                         <input type="submit" value="Удалить">
                         </form>';
                 echo "&emsp;".$AllTask[$i]->getTask(); 
@@ -71,7 +71,7 @@
 
         function refreshPage()
         {
-            echo '<meta http-equiv="refresh" content="0;URL=../Controller">';
+            echo '<meta http-equiv="refresh" content="0;URL=../Controller/Controller.php">';
         }
     }
 ?>
