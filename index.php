@@ -1,3 +1,4 @@
 <?php
-    echo '<meta http-equiv="refresh" content="0;URL=./Controller/Controller.php">';
-?>
+
+ini_set('display_errors', 1);
+require_once 'application/bootapp.php';
