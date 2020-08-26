@@ -15,10 +15,12 @@ class Controller_authentification extends Controller
 	{	
         $this->view->generate('authorization_view.php');
         
+        
     }
 
     function action_authentificationOrRegister()
     {
+    
         $theUserExists = $this->model->checkRegisterUser($_POST['login']);
 
         if ($theUserExists) 

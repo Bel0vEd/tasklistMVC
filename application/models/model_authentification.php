@@ -6,11 +6,24 @@ class Model_authentification extends Model
 	public function get_data()
 	{	
 		
-	}
+    }
+    
+    
+    private $connect_db;
+
+    function __construct()
+    {
+        $this->connect_db = new connect_database();
+        
+        
+    }
 
     function checkRegisterUser($login)
         {
-            include 'connectDB.php';
+            
+            $link = $this->connect_db->getLink();
+            $mysqli = $this->connect_db->getMysqli();
+            
             $login = $mysqli->real_escape_string($login);
             $query = "SELECT * FROM users WHERE login = '$login'";
             $request = mysqli_query($link, $query) or die("Ошибка " . mysqli_error($link));
@@ -27,7 +40,9 @@ class Model_authentification extends Model
 
         function userRegister($login, $password)
         {
-            include 'connectDB.php';
+            $link = $this->connect_db->getLink();
+            $mysqli = $this->connect_db->getMysqli();
+
             $login = $mysqli->real_escape_string($login);
             $password = $mysqli->real_escape_string($password);
             $hash = md5(md5($login.$password));
@@ -39,7 +54,9 @@ class Model_authentification extends Model
 
         function checkUserPassword($login, $password)
         {
-            include 'connectDB.php';
+            $link = $this->connect_db->getLink();
+            $mysqli = $this->connect_db->getMysqli();
+
             $login = $mysqli->real_escape_string($login);
             $password = $mysqli->real_escape_string($password);
             $query = "SELECT * FROM users WHERE login = '$login' AND password = '$password'";
@@ -61,7 +78,9 @@ class Model_authentification extends Model
 
         function userSetHash($hash, $login, $password)
         {
-            include 'connectDB.php';
+            $link = $this->connect_db->getLink();
+            $mysqli = $this->connect_db->getMysqli();
+
             $login = $mysqli->real_escape_string($login);
             $password = $mysqli->real_escape_string($password);
             $query = "UPDATE users SET user_hash = '$hash' WHERE login = '$login' AND password = '$password'";

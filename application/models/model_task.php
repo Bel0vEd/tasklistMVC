@@ -2,11 +2,21 @@
 
 class Model_task extends Model
 {
-	
+
+    private $connect_db;
+
+	function __construct()
+    {
+        $this->connect_db = new connect_database();
+    }
+
+
 	public function get_data($userHash = null)
 	{	
-		include 'connectDB.php';
-        include 'taskClass.php';
+		$link = $this->connect_db->getLink();
+        $mysqli = $this->connect_db->getMysqli();
+        
+        //include 'taskClass.php';
         $userHash = $mysqli->real_escape_string($userHash);
         $query = "SELECT * FROM tasks WHERE user_id = (SELECT id FROM users WHERE user_hash = '$userHash')";
         $request = mysqli_query($link, $query) or die("Ошибка получения задач" . mysqli_error($link));
@@ -27,7 +37,9 @@ class Model_task extends Model
     }
     
     function addTask($hash, $textTask){
-        include 'connectDB.php';
+        $link = $this->connect_db->getLink();
+        $mysqli = $this->connect_db->getMysqli();
+
         $hash = $mysqli->real_escape_string($hash);
         $textTask = $mysqli->real_escape_string($textTask);
         $query = "INSERT INTO tasks (user_id, description) VALUES ( (SELECT id FROM users WHERE user_hash = '$hash') , '$textTask')";
@@ -36,7 +48,9 @@ class Model_task extends Model
     }
 
     function editStatusOneTask($userHash, $idTask){
-        include 'connectDB.php';
+        $link = $this->connect_db->getLink();
+        $mysqli = $this->connect_db->getMysqli();
+
         $userHash = $mysqli->real_escape_string($userHash);
         $idTask = $mysqli->real_escape_string($idTask);
         $query = "UPDATE tasks SET status = 1 WHERE user_id = (SELECT id FROM users WHERE user_hash = '$userHash') AND id = ".$idTask;
@@ -45,7 +59,9 @@ class Model_task extends Model
 
     function deleteOneTask($userHash, $idTask)
     {
-        include 'connectDB.php';
+        $link = $this->connect_db->getLink();
+        $mysqli = $this->connect_db->getMysqli();
+
         $userHash = $mysqli->real_escape_string($userHash);
         $idTask = $mysqli->real_escape_string($idTask);
         $query = "DELETE FROM tasks WHERE user_id = (SELECT id FROM users WHERE user_hash = '$userHash') AND id =".$idTask;
@@ -54,7 +70,9 @@ class Model_task extends Model
 
     function deleteAllTask($userHash)
     {
-        include 'connectDB.php';
+        $link = $this->connect_db->getLink();
+        $mysqli = $this->connect_db->getMysqli();
+
         $userHash = $mysqli->real_escape_string($userHash);
         $query = "DELETE FROM tasks WHERE user_id = (SELECT id FROM users WHERE user_hash = '$userHash')";
         $request = mysqli_query($link, $query) or die("Ошибка удаления задач" . mysqli_error($link));
@@ -62,7 +80,9 @@ class Model_task extends Model
     
     function editStatusAllTask($userHash)
     {
-        include 'connectDB.php';
+        $link = $this->connect_db->getLink();
+        $mysqli = $this->connect_db->getMysqli();
+
         $userHash = $mysqli->real_escape_string($userHash);
         $query = "UPDATE tasks SET status = 1 WHERE user_id = (SELECT id FROM users WHERE user_hash = '$userHash')";
         $request = mysqli_query($link, $query) or die("Ошибка удаления задач" . mysqli_error($link));
